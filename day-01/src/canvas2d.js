@@ -17,20 +17,20 @@ function calculatePixelIndices(top, left, width, height) {
   return pixelIndices;
 }
 
-function fillRect(top, left, width, height) {
+function fillRect(top, left, width, height, color = [0, 0, 0, 255]) {
   const pixelStore = new Uint8ClampedArray(canvas.width * canvas.height * 4);
 
   const pixelIndices = calculatePixelIndices(top, left, width, height);
 
   pixelIndices.forEach((i) => {
-    pixelStore[i] = 0;  // r
-    pixelStore[i + 1] = 0;  // g
-    pixelStore[i + 2] = 0;  // b
-    pixelStore[i + 3] = 255;  // alpha
+    pixelStore[i] = color[0];  // r
+    pixelStore[i + 1] = color[1];  // g
+    pixelStore[i + 2] = color[2];  // b
+    pixelStore[i + 3] = color[3];  // alpha
   });
 
   const imageData = new ImageData(pixelStore, canvas.width, canvas.height);
   ctx.putImageData(imageData, 0, 0);
 }
 
-fillRect(10, 10, 100, 50);
+fillRect(10, 10, 100, 50, [0, 255, 0, 128]);
