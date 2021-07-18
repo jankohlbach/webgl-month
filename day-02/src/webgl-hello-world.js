@@ -10,14 +10,14 @@ const vShaderSrc = `
   attribute vec2 position;
 
   void main() {
-    gl_PointSize = 20.0;
+    gl_PointSize = 3.0;
     gl_Position = vec4(position / 2.0, 0, 1);
   }
 `;
 
 const fShaderSrc = `
   void main() {
-    gl_FragColor = vec4(1, 0, 0, 1);
+    gl_FragColor = vec4(0, 0, 0, 1);
   }
 `;
 
@@ -44,19 +44,28 @@ gl.useProgram(program);
 
 const positionPointer = gl.getAttribLocation(program, 'position');
 
-const positionData = new Float32Array([
-  -1.0,
-  -1.0,
+// const positionData = new Float32Array([
+//   -1.0,
+//   -1.0,
 
-  1.0,
-  1.0,
+//   1.0,
+//   1.0,
 
-  -1.0,
-  1.0,
+//   -1.0,
+//   1.0,
 
-  1.0,
-  -1.0,
-]);
+//   1.0,
+//   -1.0,
+// ]);
+
+const preArray = [];
+
+for (let i = -Math.PI; i <= Math.PI; i += 0.1) {
+  preArray.push(i);
+  preArray.push(2 * (Math.cos(i) * Math.cos(i)));
+}
+
+const positionData = Float32Array.from(preArray);
 
 const positionBuffer = gl.createBuffer(gl.ARRAY_BUFFER);
 
