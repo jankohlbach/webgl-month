@@ -11,7 +11,7 @@ const vShaderSrc = `
 
   void main() {
     gl_PointSize = 3.0;
-    gl_Position = vec4(position / 2.0, 0, 1);
+    gl_Position = vec4(position, 0, 1);
   }
 `;
 
@@ -60,9 +60,9 @@ const positionPointer = gl.getAttribLocation(program, 'position');
 
 const preArray = [];
 
-for (let i = -Math.PI; i <= Math.PI; i += 0.1) {
+for (let i = -Math.PI; i <= Math.PI; i += 0.03) {
   preArray.push(i);
-  preArray.push(2 * (Math.cos(i) * Math.cos(i)));
+  preArray.push(Math.cos(8 * i));
 }
 
 const positionData = Float32Array.from(preArray);
