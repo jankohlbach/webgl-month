@@ -8,10 +8,14 @@ const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
 
 const vShaderSrc = `
   attribute vec2 position;
+  uniform float width;
+
+  #define M_PI 3.1415926535897932384626433832795
 
   void main() {
-    gl_PointSize = 3.0;
-    gl_Position = vec4(position, 0, 1);
+    float x = position.x / width * 2.0 - 1.0;
+    gl_PointSize = 2.0;
+    gl_Position = vec4(x, cos(x * M_PI), 0, 1);
   }
 `;
 
@@ -43,29 +47,17 @@ gl.linkProgram(program);
 gl.useProgram(program);
 
 const positionPointer = gl.getAttribLocation(program, 'position');
+const widthUniformLocation = gl.getUniformLocation(program, 'width');
 
-// const positionData = new Float32Array([
-//   -1.0,
-//   -1.0,
+gl.uniform1f(widthUniformLocation, canvas.width);
 
-//   1.0,
-//   1.0,
+const points = [];
 
-//   -1.0,
-//   1.0,
-
-//   1.0,
-//   -1.0,
-// ]);
-
-const preArray = [];
-
-for (let i = -Math.PI; i <= Math.PI; i += 0.03) {
-  preArray.push(i);
-  preArray.push(Math.cos(8 * i));
+for (let i = 0; i < canvas.width; i++) {
+  points.push(i, i);
 }
 
-const positionData = Float32Array.from(preArray);
+const positionData = new Float32Array(points);
 
 const positionBuffer = gl.createBuffer(gl.ARRAY_BUFFER);
 
