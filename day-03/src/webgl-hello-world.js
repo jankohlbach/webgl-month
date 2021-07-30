@@ -90,7 +90,10 @@ function createHexagon(centerX, centerY, radius, segmentsCount) {
   return vertices;
 }
 
-const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, 6);
+// const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, 6);
+
+// circle
+const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, 360);
 
 const positionData = new Float32Array(triangles);
 
