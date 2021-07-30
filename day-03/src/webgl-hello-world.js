@@ -64,14 +64,33 @@ gl.uniform4fv(colorUniformLocation, [255, 0, 0, 255]);
 // ];
 
 // rectangle
-const triangles = [
-  canvas.width * 0.25, canvas.height * 0.8,
-  canvas.width * 0.75, canvas.height * 0.8,
-  canvas.width * 0.25, canvas.height * 0.2,
-  canvas.width * 0.25, canvas.height * 0.2,
-  canvas.width * 0.75, canvas.height * 0.8,
-  canvas.width * 0.75, canvas.height * 0.2,
-];
+// const triangles = [
+//   canvas.width * 0.25, canvas.height * 0.8,
+//   canvas.width * 0.75, canvas.height * 0.8,
+//   canvas.width * 0.25, canvas.height * 0.2,
+//   canvas.width * 0.25, canvas.height * 0.2,
+//   canvas.width * 0.75, canvas.height * 0.8,
+//   canvas.width * 0.75, canvas.height * 0.2,
+// ];
+
+// hexagon
+function createHexagon(centerX, centerY, radius, segmentsCount) {
+  const vertices = [];
+  const segmentAngle = Math.PI * 2  / segmentsCount;
+
+  for (let i = 0; i < Math.PI * 2; i += segmentAngle) {
+    const from = i;
+    const to = i + segmentAngle;
+
+    vertices.push(centerX, centerY);
+    vertices.push(centerX + Math.cos(from) * radius, centerY + Math.sin(from) * radius);
+    vertices.push(centerX + Math.cos(to) * radius, centerY + Math.sin(to) * radius);
+  }
+
+  return vertices;
+}
+
+const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, 6);
 
 const positionData = new Float32Array(triangles);
 
