@@ -80,22 +80,27 @@ function createHexagon(centerX, centerY, radius, segmentsCount) {
 
 function fillWithColors(segmentsCount) {
   const colors = [];
+  const rainbow = [
+    [255, 0, 0, 255],
+    [255, 165, 0, 255],
+    [255, 255, 0, 255],
+    [0, 128, 0, 255],
+    [0, 0, 255, 255],
+    [75, 0, 130, 255],
+    [238, 130, 238, 255],
+  ];
 
-  for (let i = 0; i <= segmentsCount; i += 1) {
+  for (let i = 0; i < segmentsCount; i += 1) {
     for (let j = 0; j < 3; j += 1) {
-      if (j == 0) {
-        colors.push(0, 0, 0, 255);
-      } else {
-        colors.push(i / 360 * 255, 0, 0, 255);
-      }
+      colors.push(...rainbow[i]);
     }
   }
 
   return colors;
 }
 
-const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, 360);
-const colors = fillWithColors(360);
+const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, 7);
+const colors = fillWithColors(7);
 
 const positionData = new Float32Array(triangles);
 const colorData = new Float32Array(colors);
