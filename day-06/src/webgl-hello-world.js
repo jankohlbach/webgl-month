@@ -93,13 +93,13 @@ function createHexagon(centerX, centerY, radius, segmentsCount) {
     const color = rainbow[i / segmentAngle];
 
     vertexData.push(centerX, centerY);
-    vertexData.push(...color);
+    // vertexData.push(...color);
 
     vertexData.push(centerX + Math.cos(from) * radius, centerY + Math.sin(from) * radius);
-    vertexData.push(...color);
+    // vertexData.push(...color);
 
     vertexData.push(centerX + Math.cos(to) * radius, centerY + Math.sin(to) * radius);
-    vertexData.push(...color);
+    // vertexData.push(...color);
   }
 
   return vertexData;
@@ -117,17 +117,33 @@ function fillWithColors(segmentsCount) {
   return colors;
 }
 
-const triangles = createRect(0, 0, canvas.height, canvas.height);
+// const triangles = createRect(0, 0, canvas.height, canvas.height);
+const segments = 7;
+const triangles = createHexagon(canvas.width / 2, canvas.height / 2, canvas.height / 2, segments);
 
 const vertexData = new Float32Array(triangles);
 const vertexBuffer = gl.createBuffer(gl.ARRAY_BUFFER);
 
 const indexBuffer = gl.createBuffer(gl.ARRAY_BUFFER);
 
-const indexData = new Uint8Array([
-  0, 1, 2,
-  1, 2, 3,
-]);
+// const indexData = new Uint8Array([
+//   0, 1, 2,
+//   0, 2, 5,
+//   0, 5, 8,
+//   0, 8, 11,
+//   0, 11, 14,
+//   0, 14, 17,
+//   0, 17, 20,
+// ]);
+const indices = [];
+for (let i = 0; i < segments; i += 1) {
+  indices.push(
+    0,
+    i == 0 ? 1 : i * 3 - 1,
+    (i + 1) * 3 - 1,
+  );
+}
+const indexData = new Uint8Array(indices);
 
 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indexData, gl.STATIC_DRAW);
