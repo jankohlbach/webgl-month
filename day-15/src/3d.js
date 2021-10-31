@@ -65,10 +65,10 @@ const cubeVertices = new Float32Array([
   1.0, -1.0, 1.0,
 
   // Left face,
-  1.0, -1.0, -1.0,
-  1.0, 1.0, -1.0,
-  1.0, 1.0, 1.0,
-  1.0, -1.0, 1.0,
+  -1.0, -1.0, -1.0,
+  -1.0, -1.0, 1.0,
+  -1.0, 1.0, 1.0,
+  -1.0, 1.0, -1.0,
 ]);
 
 const indices = new Uint8Array([
@@ -77,7 +77,7 @@ const indices = new Uint8Array([
   8, 9, 10, 8, 10, 11, // top
   12, 13, 14, 12, 14, 15, // bottom
   16, 17, 18, 16, 18, 19, // right
-  20, 21, 22, 20, 21, 23, // left
+  20, 21, 22, 20, 22, 23, // left
 ]);
 
 const vertexBuffer = new GLBuffer(gl, gl.ARRAY_BUFFER, cubeVertices, gl.STATIC_DRAW);
